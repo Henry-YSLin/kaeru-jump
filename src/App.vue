@@ -77,6 +77,7 @@ export default Vue.extend({
             if (steps) {
               return [dir, ...steps];
             }
+            break;
           }
           currentX += offsetX;
           currentY += offsetY;
