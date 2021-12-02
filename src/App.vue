@@ -92,6 +92,7 @@ export default Vue.extend({
     solve() {
       const frogRow = this.frogGrid.find(r => r.includes(true));
       if (frogRow === undefined) {
+        // eslint-disable-next-line no-alert
         alert('Select a starting location for the frog first!');
         return;
       }
