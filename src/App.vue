@@ -58,9 +58,9 @@ export default Vue.extend({
       if (grid.reduce((acc, row) => acc + row.reduce((a, cell) => a + (cell ? 1 : 0), 0), 0) === 1) {
         return [];
       }
-      const nextGrid = grid.map(row => row.slice());
-      nextGrid[frogY][frogX] = false;
       for (let i = 0; i < 4; i++) {
+        const nextGrid = grid.map(row => row.slice());
+        nextGrid[frogY][frogX] = false;
         const dir = i as Direction;
         if (dir === getOppositeDirection(direction)) {
           continue;
