@@ -20,7 +20,11 @@
     <hr>
     <div>
       <h3>Results:</h3>
-      <pre id="result">{{ result }}</pre>
+      <p v-if="result === undefined">Click solve to generate results.</p>
+      <p v-else-if="result === null">No solution.</p>
+      <ol class="centered-list" v-else>
+        <li v-for="(step, idx) in result" :key="idx">{{ step }}</li>
+      </ol>
     </div>
   </div>
 </template>
@@ -41,13 +45,13 @@ export default Vue.extend({
     grid: boolean[][],
     frogGrid: boolean[][],
     direction: Direction,
-    result: string,
+    result: string[] | null | undefined,
     } {
     return {
       grid: new Array(6).fill(null).map(_ => new Array(6).fill(false)),
       frogGrid: new Array(6).fill(null).map(_ => new Array(6).fill(false)),
       direction: Direction.Up,
-      result: '',
+      result: undefined,
     };
   },
   methods: {
@@ -103,10 +107,10 @@ export default Vue.extend({
 
       const steps = this.step(this.grid, frogX, frogY, this.direction);
       if (steps === null) {
-        this.result = 'No solution found!';
+        this.result = null;
         return;
       }
-      this.result = steps.map(d => Direction[d]).join('\n->');
+      this.result = steps.map(d => Direction[d]);
     },
   },
 });
@@ -126,5 +130,10 @@ export default Vue.extend({
   height: 50px;
   font-size: 1.5rem;
   margin: 10px;
+}
+.centered-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
